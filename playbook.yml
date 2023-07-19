@@ -13,7 +13,6 @@
           - g++
           - vim
           - tmux
-          - ubuntu-gnome-desktop
 
     - name: Download vim settings
       git:
