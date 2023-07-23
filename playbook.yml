@@ -2,15 +2,13 @@
 - name: Configure dev machine
   hosts: all
 
-  tasks:
-    - name: Install apt packages
+  pre_tasks:
+    - name: Install productivity tools
       become: true
       apt:
         update_cache: true
         cache_valid_time: 3600
         pkg:
-          - cmake
-          - g++
           - vim
           - tmux
 
@@ -24,3 +22,6 @@
         src: "{{ ansible_env.HOME }}/dotfiles/.vimrc"
         dest: "{{ ansible_env.HOME }}/.vimrc"
         state: link
+
+  roles:
+    - role: avr
