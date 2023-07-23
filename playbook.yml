@@ -3,25 +3,14 @@
   hosts: all
 
   pre_tasks:
-    - name: Install productivity tools
+    - name: Install general tools
       become: true
       apt:
         update_cache: true
         cache_valid_time: 3600
         pkg:
-          - vim
           - tmux
 
-    - name: Download vim settings
-      git:
-        repo: "https://github.com/kyungminkim7/dotfiles.git"
-        dest: "{{ ansible_env.HOME }}/dotfiles"
-
-    - name: Set .vimrc symlink
-      file:
-        src: "{{ ansible_env.HOME }}/dotfiles/.vimrc"
-        dest: "{{ ansible_env.HOME }}/.vimrc"
-        state: link
-
   roles:
+    - role: vim
     - role: avr
