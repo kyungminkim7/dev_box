@@ -3,12 +3,14 @@
   hosts: all
 
   pre_tasks:
-    - name: Install general tools
+    - name: Install apt packages
       become: true
       apt:
         update_cache: true
         cache_valid_time: 3600
         pkg:
+          - bash-completion
+          - git
           - tmux
 
   roles:
