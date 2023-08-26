@@ -1,5 +1,5 @@
 ---
-- name: Install vim
+- name: Install apt packages
   become: true
   apt:
     update_cache: true
@@ -7,7 +7,7 @@
     pkg:
       - vim
 
-- name: Download vim settings
+- name: Download settings
   git:
     repo: "https://github.com/kyungminkim7/dotfiles.git"
     dest: "{{ ansible_env.HOME }}/dotfiles"

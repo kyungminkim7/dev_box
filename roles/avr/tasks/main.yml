@@ -1,5 +1,5 @@
 ---
-- name: Install avr dev tools
+- name: Install apt packages
   become: true
   apt:
     update_cache: true
