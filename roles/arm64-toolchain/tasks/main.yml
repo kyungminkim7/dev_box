@@ -4,6 +4,6 @@
   apt:
     update_cache: true
     cache_valid_time: 3600
+    state: latest
     pkg:
-      - cmake
-      - g++
+      - g++-aarch64-linux-gnu

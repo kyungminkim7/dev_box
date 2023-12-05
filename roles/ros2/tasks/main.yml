@@ -1,0 +1,30 @@
+---
+- name: Add apt key
+  become: true
+  apt_key:
+    url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.key
+
+- name: Get dpkg architecture
+  command: dpkg --print-architecture
+  register: dpkg_architecture
+
+- name: Add apt repository
+  become: true
+  apt_repository:
+    repo: "deb [arch={{ dpkg_architecture.stdout }}] http://packages.ros.org/ros2/ubuntu {{ ansible_facts.distribution_release }} main"
+    filename: ros2
+
+- name: Install apt packages
+  become: true
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+    state: latest
+    pkg:
+      - ros-dev-tools
+      - ros-rolling-ros-base
+
+- name: Source setup file in .bashrc
+  lineinfile:
+    path: ~/.bashrc
+    line: source /opt/ros/rolling/setup.bash

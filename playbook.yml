@@ -8,11 +8,33 @@
       apt:
         update_cache: true
         cache_valid_time: 3600
+        state: latest
         pkg:
           - bash-completion
+          - cmake
+          - g++
           - git
           - tmux
+          - vim
+
+    - name: Download dotfile settings
+      git:
+        repo: "https://github.com/kyungminkim7/dotfiles.git"
+        dest: "{{ ansible_env.HOME }}/dotfiles"
+
+    - name: Set .vimrc symlink
+      file:
+        src: "{{ ansible_env.HOME }}/dotfiles/.vimrc"
+        dest: "{{ ansible_env.HOME }}/.vimrc"
+        state: link
+
+    - name: Set .tmux.conf symlink
+      file:
+        src: "{{ ansible_env.HOME }}/dotfiles/.tmux.conf"
+        dest: "{{ ansible_env.HOME }}/.tmux.conf"
+        state: link
 
   roles:
-    - role: vim
-    - role: avr
+    - role: arm64-toolchain
+    - role: avr-toolchain
+    # - role: ros2
