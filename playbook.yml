@@ -11,10 +11,11 @@
         state: latest
         pkg:
           - bash-completion
+          - build-essential
           - cmake
-          - g++
           - git
           - tmux
+          - tree
           - vim
 
     - name: Download dotfile settings

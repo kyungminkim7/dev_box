@@ -6,4 +6,4 @@
     cache_valid_time: 3600
     state: latest
     pkg:
-      - g++-aarch64-linux-gnu
+      - crossbuild-essential-arm64
