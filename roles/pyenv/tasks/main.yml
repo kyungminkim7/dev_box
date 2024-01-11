@@ -1,0 +1,43 @@
+---
+- name: Install build dependencies
+  become: true
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+    pkg:
+      - build-essential
+      - curl
+      - libbz2-dev
+      - libffi-dev
+      - liblzma-dev
+      - libncurses5-dev
+      - libncursesw5-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - libssl-dev
+      - llvm
+      - tk-dev
+      - wget
+      - xz-utils
+      - zlib1g-dev
+
+- name: Download pyenv installer
+  uri:
+    url: https://pyenv.run
+    return_content: true
+  register: pyenv_installer
+
+- name: Run pyenv installer
+  command:
+    cmd: bash -s
+    stdin: "{{ pyenv_installer.content }}"
+    creates: ~/.pyenv
+
+- name: Add pyenv paths to .bashrc
+  blockinfile:
+    path: ~/.bashrc
+    block: |
+      export PYENV_ROOT="$HOME/.pyenv"
+      [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+      eval "$(pyenv init -)"
+      eval "$(pyenv virtualenv-init -)"

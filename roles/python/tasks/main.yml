@@ -1,0 +1,11 @@
+---
+- name: Install Python
+  environment:
+    PYENV_ROOT: "{{ ansible_env.HOME }}/.pyenv"
+    PATH: "{{ ansible_env.HOME }}/.pyenv/bin:{{ ansible_env.PATH }}"
+  shell:
+    cmd: >
+      eval "$(pyenv init -)" &&
+      pyenv install {{ python_version }} &&
+      pyenv global {{ python_version }}
+    creates: ~/.pyenv/versions/{{ python_version }}

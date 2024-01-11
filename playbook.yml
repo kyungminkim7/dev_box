@@ -38,4 +38,6 @@
   roles:
     - role: arm64-toolchain
     - role: avr-toolchain
+    - role: python
+      python_version: 3.12.1
     # - role: ros2
