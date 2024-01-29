@@ -13,11 +13,18 @@
           - bash-completion
           - build-essential
           - cmake
-          - git
           - tmux
           - tree
           - vim
 
+  roles:
+    - role: arm64-toolchain
+    - role: avr-toolchain
+    - role: git
+    - role: python
+      python_version: 3.12.1
+
+  post_tasks:
     - name: Download dotfile settings
       git:
         repo: "https://github.com/kyungminkim7/dotfiles.git"
@@ -34,10 +41,3 @@
         src: "{{ ansible_env.HOME }}/dotfiles/.tmux.conf"
         dest: "{{ ansible_env.HOME }}/.tmux.conf"
         state: link
-
-  roles:
-    - role: arm64-toolchain
-    - role: avr-toolchain
-    - role: python
-      python_version: 3.12.1
-    # - role: ros2
